@@ -42,13 +42,13 @@ namespace SuperShop.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             var product = await _productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             return View(product);
@@ -87,56 +87,24 @@ namespace SuperShop.Controllers
             return View(model);
         }
 
-        //private Product ToProduct(ProductViewModel model, string path)
-        //{
-        //    return new Product
-        //    {
-        //        Id = model.Id,
-        //        ImageUrl = path,
-        //        IsAvailable = model.IsAvailable,
-        //        LastPurchase = model.LastPurchase,
-        //        LastSale = model.LastSale,
-        //        Name = model.Name,
-        //        Price = model.Price,
-        //        Stock = model.Stock,
-        //        User = model.User
-        //    };
-        //}
-
         // GET: Products/Edit/5
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             var product = await _productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             var model = _converterHelper.ToProductViewModel(product);
             return View(model);
         }
-
-        //private ProductViewModel ToProductViewModel(Product product)
-        //{
-        //    return new ProductViewModel
-        //    {
-        //        Id = product.Id,
-        //        IsAvailable = product.IsAvailable,
-        //        LastPurchase = product.LastPurchase,
-        //        LastSale = product.LastSale,
-        //        ImageUrl = product.ImageUrl,
-        //        Name = product.Name,
-        //        Price = product.Price,
-        //        Stock = product.Stock,
-        //        User = product.User
-        //    };
-        //}
 
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -183,14 +151,14 @@ namespace SuperShop.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
 
             var product = await _productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             return View(product);
@@ -204,6 +172,11 @@ namespace SuperShop.Controllers
             var product = await _productRepository.GetByIdAsync(id);
             await _productRepository.DeleteAsync(product);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult ProductNotFound()
+        {
+            return View();
         }
     }
 }
