@@ -16,6 +16,8 @@ namespace SuperShop.Data
         Task ModifyOrderDetailTempQuantityAsync(int id , double quantity);
 
         Task DeletDetailTempAsync(int id);
+
+        Task<bool> ConfirmOrderAsync(string userName);
     }
 
 }
