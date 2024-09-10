@@ -44,7 +44,7 @@ namespace SuperShop
             // Quando fizer publish, mudar para DefaultConnection1 
             services.AddDbContext<DataContext>(cfg =>
             {
-                cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection1"));
+                cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddTransient<SeedDb>();
@@ -55,6 +55,8 @@ namespace SuperShop
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+
 
             services.ConfigureApplicationCookie(options =>
             {
