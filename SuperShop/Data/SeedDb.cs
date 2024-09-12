@@ -45,16 +45,16 @@ namespace SuperShop.Data
                 await _context.SaveChangesAsync();
             }
 
-            var user = await _userHelper.GetUserByEmailAsync("rafaasfs@gmail.com");
+            var user = await _userHelper.GetUserByEmailAsync("davidtestecinel@gmail.com");
 
             if (user == null)
             {
                 user = new User
                 {
-                    FirstName = "Rafael",
-                    LastName = "Santos",
-                    Email = "rafaasfs@gmail.com",
-                    UserName = "rafaasfs@gmail.com",
+                    FirstName = "David",
+                    LastName = "Admin",
+                    Email = "davidtestecinel@gmail.com",
+                    UserName = "davidtestecinel@gmail.com",
                     PhoneNumber = "1234567890",
                     Address = "Rua Jau 33",
                     CityId = _context.Countries.FirstOrDefault().Cities.FirstOrDefault().Id,
@@ -68,6 +68,8 @@ namespace SuperShop.Data
                 }
 
                 await _userHelper.AddUserToRoleAsync(user, "Admin");
+                var token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await _userHelper.ConfirmEmailAsync(user, token);
             }
 
             var isInRole = await _userHelper.IsUserInRoleAsync(user, "Admin");
