@@ -23,6 +23,29 @@ namespace SuperShop.Data
             
         }
 
+        protected override void OnModelCreating(ModelBuilder modebuilder)
+        {
+            modebuilder.Entity<Country>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
+
+            modebuilder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18,2)");
+
+            modebuilder.Entity<OrderDetailTemp>()
+               .Property(p => p.Price)
+               .HasColumnType("decimal(18,2)");
+
+            modebuilder.Entity<OrderDetail>()
+               .Property(p => p.Price)
+               .HasColumnType("decimal(18,2)");
+
+
+
+            base.OnModelCreating(modebuilder);
+        }
+
         //HABILITAR A REGRA DE APAGAR EM CASCATA(CASCADE DELETE RULE)
 
         //protected override void OnModelCreating(ModelBuilder modeBuilder)

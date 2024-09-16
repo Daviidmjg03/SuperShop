@@ -32,7 +32,7 @@ namespace SuperShop.Data.Entities
 
         public User User { get; set; }
 
-        public string ImageFullPath => ImageId == Guid.Empty ? $"https://supershop20240815131342.azurewebsites.net/images/noimage.png"
+        public string ImageFullPath => ImageId == Guid.Empty ? $"images/noimage.png"
             : $"https://supershopdg.blob.core.windows.net/products/{ImageId}";
     }
 }
